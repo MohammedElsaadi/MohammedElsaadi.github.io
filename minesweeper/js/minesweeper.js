@@ -221,6 +221,7 @@ function revealAllAdjacent(x,y,middle){
 					gridTiles[i].classList.remove("hidden");
 					gridTiles[i].setAttribute('revealed','');
 					numRevealed++;
+					revealAllAdjacent(gridTiles[i].getAttribute('xpos'),gridTiles[i].getAttribute('ypos'),false);
 				}else if (gridTiles[i].hasAttribute('hint')){
 					gridTiles[i].classList.remove("hidden");
 					gridTiles[i].classList.add( "tile_" + gridTiles[i].getAttribute('hint') );
@@ -276,29 +277,33 @@ function handleTileClick(event) {
 	var remainingMines = document.getElementById("flagCount");
 	
     // Left Click
-	if (noClicks === true){
-		this.setAttribute('revealed','');
-		this.classList.remove("hidden");
-		numRevealed++;
-		usedCoords.push( {x : this.getAttribute('xpos'), y : this.getAttribute('ypos') }); //the coord of the click
-		usedCoords.push( {x : parseInt(this.getAttribute('xpos')) - 1, y : parseInt(this.getAttribute('ypos')) - 1 }); //the top right
+
+		//otherwise, if it isnt the first click...
+		if (mineHit === false && winner === false){ //this if statement makes it so u cant click anymore after losing or winning
+		
+		//left clicks
+		if (event.which === 1) {
+				if (noClicks === true){
+					this.classList.remove("hidden");
+					numRevealed++;
+					usedCoords.push( {x : this.getAttribute('xpos'), y : this.getAttribute('ypos') }); //the coord of the click
+		/*usedCoords.push( {x : parseInt(this.getAttribute('xpos')) - 1, y : parseInt(this.getAttribute('ypos')) - 1 }); //the top right
 		usedCoords.push( {x : parseInt(this.getAttribute('xpos')) - 1, y : this.getAttribute('ypos') }); // the right sidebar
 		usedCoords.push( {x : parseInt(this.getAttribute('xpos')) - 1, y : parseInt(this.getAttribute('ypos')) + 1 }); //the bottom right
 		usedCoords.push( {x : this.getAttribute('xpos'), y : parseInt(this.getAttribute('ypos')) - 1 }); //the top
 		usedCoords.push( {x : this.getAttribute('xpos'), y : parseInt(this.getAttribute('ypos')) + 1}); //the bottom
 		usedCoords.push( {x : parseInt(this.getAttribute('xpos')) + 1, y : parseInt(this.getAttribute('ypos')) - 1 }); //the top left
 		usedCoords.push( {x : parseInt(this.getAttribute('xpos')) + 1, y : this.getAttribute('ypos') }); //the left
-		usedCoords.push( {x : parseInt(this.getAttribute('xpos')) + 1, y : parseInt(this.getAttribute('ypos')) + 1 }); //the bottom left
+		usedCoords.push( {x : parseInt(this.getAttribute('xpos')) + 1, y : parseInt(this.getAttribute('ypos')) + 1 }); //the bottom left*/
 		noClicks = false;
 		//now that the first click is done, assign the tiles and mines around it and the adjacent tiles
 		setMines(this.getAttribute('xpos'),this.getAttribute('ypos'));
 		assignTiles();
-	}else{
-		//otherwise, if it isnt the first click...
-		if (mineHit === false && winner === false){ //this if statement makes it so u cant click anymore after losing or winning
-		
-		//left clicks
-		if (event.which === 1) {
+		if (this.hasAttribute('clear')){
+			revealAllAdjacent(this.getAttribute('xpos'),this.getAttribute('ypos'),false);
+		}
+		//this.setAttribute('revealed','');
+	}
 			if (!this.hasAttribute('revealed') && this.hasAttribute('unflagged')){ //if it isnt revelead and it isnt flagged...
 				if (this.hasAttribute('mine')){ //if u hit a mine, u lose
 					this.classList.add("mine_hit");
@@ -359,7 +364,7 @@ function handleTileClick(event) {
 		}
 		
 		}
-	}
+	
 		//so if u hit a mine, the game is over
 		if (mineHit === true){
 			gameOver();
