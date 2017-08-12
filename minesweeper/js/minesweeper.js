@@ -287,14 +287,6 @@ function handleTileClick(event) {
 					this.classList.remove("hidden");
 					numRevealed++;
 					usedCoords.push( {x : this.getAttribute('xpos'), y : this.getAttribute('ypos') }); //the coord of the click
-		/*usedCoords.push( {x : parseInt(this.getAttribute('xpos')) - 1, y : parseInt(this.getAttribute('ypos')) - 1 }); //the top right
-		usedCoords.push( {x : parseInt(this.getAttribute('xpos')) - 1, y : this.getAttribute('ypos') }); // the right sidebar
-		usedCoords.push( {x : parseInt(this.getAttribute('xpos')) - 1, y : parseInt(this.getAttribute('ypos')) + 1 }); //the bottom right
-		usedCoords.push( {x : this.getAttribute('xpos'), y : parseInt(this.getAttribute('ypos')) - 1 }); //the top
-		usedCoords.push( {x : this.getAttribute('xpos'), y : parseInt(this.getAttribute('ypos')) + 1}); //the bottom
-		usedCoords.push( {x : parseInt(this.getAttribute('xpos')) + 1, y : parseInt(this.getAttribute('ypos')) - 1 }); //the top left
-		usedCoords.push( {x : parseInt(this.getAttribute('xpos')) + 1, y : this.getAttribute('ypos') }); //the left
-		usedCoords.push( {x : parseInt(this.getAttribute('xpos')) + 1, y : parseInt(this.getAttribute('ypos')) + 1 }); //the bottom left*/
 		noClicks = false;
 		//now that the first click is done, assign the tiles and mines around it and the adjacent tiles
 		setMines(this.getAttribute('xpos'),this.getAttribute('ypos'));
