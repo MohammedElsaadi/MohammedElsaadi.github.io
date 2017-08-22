@@ -67,7 +67,7 @@
     background-image: url("../images/face_win.png");
 }
 
-h1 {
+h1,h2,p {
     text-align: center;
 }
 div {
