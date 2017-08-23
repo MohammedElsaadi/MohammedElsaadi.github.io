@@ -11,10 +11,13 @@
 
     <body>
         <h1> Minesweeper </h1>
-        <h2> touch the smiley face to begin </h2>
-        <p> Left click to reveal, right click to mark flags, middle click to do special sweep </p>
+        <h2> Touch the smiley face to begin </h2>
+        <p>Left click to reveal tiles</p>
+        <p>Right click to mark flags</p>
+        <p>Middle click to reveal adjacent tiles</p>
+        <p>(only works if the # of flags around the tile equal the hint value)</p>
 
-        <div>
+        <div>Difficulty:
             <select id="difficulty" onchange="setDifficulty();">
                <option value="0">Easy</option>
                <option value="1">Medium</option>
